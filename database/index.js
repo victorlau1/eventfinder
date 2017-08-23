@@ -3,6 +3,8 @@ let user = credentials.loginData.user;
 let password = credentials.loginData.password
 
 const Sequelize = require('sequelize');
+
+//setting up a connection 
 const seq = new Sequelize('greenfielddb', user, password, {
   host: 'localhost',
   dialect: 'mysql',
@@ -24,6 +26,7 @@ Events.sync({force: false}).then(() => {
 	console.log('Created "events" table');
 });
 
+//test the connection
 seq
   .authenticate()
   .then(() => {
