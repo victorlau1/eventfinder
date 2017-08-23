@@ -18,6 +18,9 @@ router.post('/search', bodyParser.json(), (req, res) => {
     .then((response) => {
       console.log('response from google api ', response.data.results);
     })
+    .catch(function (error) {
+    console.log(error);
+    });
 })
 
 

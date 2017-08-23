@@ -18,18 +18,20 @@ describe('Spotify API', () => {
 				.post('/songkick/')
 				.send(data)
 				.end((err, res) => {
+					console.log(res.body);
 					res.should.have.status(200);
 					expect(res).to.have.headers;
 					expect(res).to.have.header('content-type', 'application/json; charset=utf-8');
-					expect(res.body.event[0]).to.have.property('displayName');
+					expect(res.body[0]).to.have.property('displayName');
 					done();
 				});
 		 });
 	});
 });
 
+//!!!!!!!!!! BEFORE TESING !!!!!!!!!!!!!!
 // Need to fetch a new token manually from here https://developer.spotify.com/web-api/console/get-audio-features-track/
-let token = 'BQAqIKCIRwIueBXRi_pFsRRyJa_zh-w7FdpcQY7TQdR0TDlAOeCPDCF6NAtssY_tDp-wy66NRvhYZ8R9epQSqQtyhM8IpZ7ZGyIx-ob3La7D4kDcM9X3uIvm1ZNq7tlnXJKB_j2HemlUrUoI_nZ8GLb2HZMlGEkcANRjRAbHrCjSIwjygE-iM_ZR9i6DP-X7P8WUxiKO0d0a0yt78PTmcXiSIkMEVBWIk5urawwa7K5kvsMz_-eWevUWQlR1yGvUDDXIptaEeUKn7r8PDKc';
+let token = 'BQDR1kJ7DfwhRY8IrznobmNqFUpny0_zUmzYN_eDyU_xZdodi7nAbX3BHYGxdKJn0bjJ-EIJUob5jiP2Gnju09iU8rolVAppAfeL5cfU4LprzMTC0eGNUqar97pB6319dsEJ0fTU52tRAHMwvoNmcSNJCVVFdfPbsesrHn3xauG9N5zwhcInBfWYdPVM4p5vLDN6luWVgdSA5DNhUSX-xpo4UgMLsPvWk57TFLuFlMkvdGEII593D809dhdgx1GVJyqC6mCfAeLoWyeLqKrM67PuYHTeZ1373Sx-nPFP50J40TRSeT6G3Ts24y6aMYZfcE9nGJPcfw';
 
 describe('Spotify API', () => {
 	beforeEach(() => {
@@ -44,7 +46,7 @@ describe('Spotify API', () => {
 					res.should.have.status(200);
 					expect(res).to.have.headers;
 					expect(res).to.have.header('content-type', 'text/html; charset=utf-8');
-					res.text.should.equal('https://accounts.spotify.com/authorize?client_id=1b4dd6acf0c14120b5fa6ae37b4c773a&redirect_uri=http%3A%2F%2Flocalhost%3A8888%2Fspotify%2Fcallback%2F&scope=user-read-private%20user-read-email&response_type=token');
+					res.text.should.equal('https://accounts.spotify.com/authorize?client_id=1b4dd6acf0c14120b5fa6ae37b4c773a&redirect_uri=http%3A%2F%2Flocalhost%3A1337%2Fspotify%2Fcallback%2F&scope=user-read-private%20user-read-email&response_type=token');
 					done();
 				});
 		});
@@ -76,7 +78,7 @@ describe('Spotify API', () => {
 			chai.request(server)
 				.get('/spotify/callback')
 				.end((err, res) => {
-					res.should.redirectTo('http://localhost:8888/');
+					res.should.redirectTo('http://localhost:1337/');
 					done();
 				});
 		});
