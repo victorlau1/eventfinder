@@ -18,7 +18,7 @@ describe('Spotify API', () => {
 				.post('/songkick/')
 				.send(data)
 				.end((err, res) => {
-					console.log(res.body);
+					//console.log(res.body);
 					res.should.have.status(200);
 					expect(res).to.have.headers;
 					expect(res).to.have.header('content-type', 'application/json; charset=utf-8');
@@ -31,7 +31,7 @@ describe('Spotify API', () => {
 
 //!!!!!!!!!! BEFORE TESING !!!!!!!!!!!!!!
 // Need to fetch a new token manually from here https://developer.spotify.com/web-api/console/get-audio-features-track/
-let token = 'BQDR1kJ7DfwhRY8IrznobmNqFUpny0_zUmzYN_eDyU_xZdodi7nAbX3BHYGxdKJn0bjJ-EIJUob5jiP2Gnju09iU8rolVAppAfeL5cfU4LprzMTC0eGNUqar97pB6319dsEJ0fTU52tRAHMwvoNmcSNJCVVFdfPbsesrHn3xauG9N5zwhcInBfWYdPVM4p5vLDN6luWVgdSA5DNhUSX-xpo4UgMLsPvWk57TFLuFlMkvdGEII593D809dhdgx1GVJyqC6mCfAeLoWyeLqKrM67PuYHTeZ1373Sx-nPFP50J40TRSeT6G3Ts24y6aMYZfcE9nGJPcfw';
+let token = 'BQApsf2yPXyU9D_qMA72Qu-qHlYotHOjmPxSCnAsZ5cR54VpduHIH77o5KQKjucg8MAiQVTnJuasAu1KEwCwVeV-w4E3fw0vmvJxwikhEDdYdjeLWGvW7Q3bCII7EEtf9fjZmqnJLXwKpZwwEOvzsdlLobzIQYIG1Xffvez8EZ6DRTJ_uJYDrfy41W8u7qBzq9mnMOwg0J3zzOtiM3bSsPOr2fw3aXLm_a81DusH3pYQUTOcYfcXjE0OKoBpq2l-ju0ZOYJo0DGq3Z9p_oQTOgrJP8svZAZ-CCBfbmME-dSaX4JdFyUnc_WJbrdYXv6J4UHBUYslVA';
 
 describe('Spotify API', () => {
 	beforeEach(() => {
