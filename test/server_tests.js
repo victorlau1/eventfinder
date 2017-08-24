@@ -86,6 +86,14 @@ describe('Spotify API', () => {
 					done();
 				});
 		});
+		it('it should 404 everything else', (done) => {
+		chai.request(server)
+			.get('/spotify/foo/')
+			.end ( (err, res) => {
+				expect(404);
+			  done();
+			});
+	  });
 
 	});
 
@@ -110,7 +118,7 @@ describe('Spotify API', () => {
 	});
 
 	describe('POST /spotify/login', () => {
-		it('it should store the token', (done) => {
+		it('it should facilate login', (done) => {
 			chai.request(server)
 			  .post('/spotify/login')
 			  .send({data: testToken})
@@ -119,6 +127,14 @@ describe('Spotify API', () => {
 			  	done();
 			  })
 		})
+		it('it should 404 everything else', (done) => {
+		chai.request(server)
+			.post('/spotify/foo/')
+			.end ( (err, res) => {
+				expect(404);
+			  done();
+			});
+	  });
 	});
 
 	// describe('POST /spotify/search', () => {
