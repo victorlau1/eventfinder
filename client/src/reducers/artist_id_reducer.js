@@ -1,8 +1,8 @@
-import { SELECTED_ARTIST } from '../actions';
+import { GET_ARTIST_ID } from '../actions';
 
 export default function (state = '', action) {
    switch (action.type) {
-      case SELECTED_ARTIST:
+      case GET_ARTIST_ID:
       return action.payload
    }
    return state;

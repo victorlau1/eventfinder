@@ -1,9 +1,10 @@
-import { GET_ZOOM } from '../actions/index';
+import { SET_DATE } from '../actions/index';
 
 export default function (state = [], action) {
    switch(action.type){
-      case GET_ZOOM:
-         return action.payload
+      case SET_DATE:
+         return action.payload;
       }
    return state;
 }
+

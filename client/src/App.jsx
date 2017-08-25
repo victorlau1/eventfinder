@@ -12,22 +12,7 @@ import Concerts from './components/Concerts.jsx';
 
 
 class App extends React.Component {
-  //  constructor(props) {
-  //    super(props);
-  //    this.state = {
-  //      events: [],
-  //      startDate: moment(),
-  //      artist: '',
-  //      hoveredEvent: '',
-  //      artistId: undefined,
-  //      token: undefined,
-  //      mapCenter: {lat: 37.783607, lng:-122.408967}
-  //    };
- 
-     // this.handleDateChange = this.handleDateChange.bind(this);
-  //    this.handleArtistClick = this.handleArtistClick.bind(this);
-  //    this.handleHover = this.handleHover.bind(this);
-  //  }
+
  
    componentWillMount() {
      this.authenticateSpotify();
@@ -60,13 +45,6 @@ class App extends React.Component {
      }
    }
  
-   // handleDateChange(date) {
-   //   this.setState({
-   //     startDate: date
-   //   });
-   //   this.requestSongkickEvents(date);
-   // }
- 
   //  handleArtistClick(clickedArtist) {
   //    this.setState({
   //      artist: clickedArtist
@@ -76,17 +54,6 @@ class App extends React.Component {
   //    })
   //  }
  
-  //  handleHover(hoveredEvent) {
-  //    if (hoveredEvent) {
-  //      this.setState({
-  //        hoveredEvent: hoveredEvent
-  //      });
-  //    } else {
-  //      this.setState({
-  //        hoveredEvent: ''
-  //      })
-  //    }
-  //  }
  
  
    //Move to index.js
@@ -112,35 +79,7 @@ class App extends React.Component {
   //    }
   //  }
  
-   //GET_EVENTS
-   // requestSongkickEvents(date) {
-   //   let formattedDate = this.state.startDate.format('YYYY-MM-DD');
-   //   let latitude = this.state.mapCenter.lat;
-   //   let longitude = this.state.mapCenter.lng;
-   //   if (date) {
-   //     formattedDate = date.format('YYYY-MM-DD')
-   //   }
-   //   axios.post('/songkick/', {
-   //     date: formattedDate,
-   //     lat: latitude,
-   //     lng: longitude
-   //   })
-   //     .then((data) => {
-   //       console.log('data received', data.data)
-   //       this.setState({
-   //         events: data.data,
-   //         artist: data.data[0].headline
-   //       });
-   //       this.requestArtistId();
-   //       console.log('state:', this.state.events);
-   //     })
-   //     .catch((err) => {
-   //       console.log('Error: ', err);
-   //     });
-   // }
- 
   render() {
-    console.log()
     
      const scrollbar = {
        width: 555,
@@ -179,11 +118,9 @@ class App extends React.Component {
              </ReactScrollbar>
            </Col>
          </Row>
-       </Grid>
- 
+       </Grid> 
      )
    }
  }
-
 
 export default App;

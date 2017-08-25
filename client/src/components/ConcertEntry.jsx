@@ -10,8 +10,8 @@ class ConcertEntry extends React.Component {
     }
   }
 
-  handleClick(clickedArtist) {
-    this.props.handleArtistClick(clickedArtist);
+  handleClick(artist) {
+    this.props.fetchArtist(artist);
   }
 
   mouseIn(venueName) {
@@ -19,7 +19,7 @@ class ConcertEntry extends React.Component {
   }
 
   mouseOut() {
-    this.props.handleHover();
+    this.props.handleHover('');
   }
 
   render() {
@@ -28,7 +28,7 @@ class ConcertEntry extends React.Component {
       <ListGroupItem
         header={this.props.event.headline}
         onClick={() => this.handleClick(this.props.event.headline)}
-        onMouseEnter={() =>  this.mouseIn(this.props.event.venue)}
+        onMouseEnter={() => this.mouseIn(this.props.event.venue)}
         onMouseLeave={() => this.mouseOut()}>
         <span> {this.props.event.venue} on {this.props.event.date.slice(0, 10)} {this.props.event.time}</span>
         <a href={this.props.event.uri}>Buy Tickets</a>

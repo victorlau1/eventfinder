@@ -8,9 +8,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchEvents, hoverEvent, fetchArtist } from '../actions/index.js';
 
-
-
-
 class Concerts extends React.Component {
   
   componentWillMount() {
@@ -21,7 +18,12 @@ class Concerts extends React.Component {
     console.log('Concert Props', this.props)
     return (
       this.props.events.map((event) => {
-        return <ConcertEntry  key={event.id} event={event} handleHover={this.props.hoverEvent} handleArtistClick={this.props.fetchArtist}/>
+        return <ConcertEntry  
+          key={event.id} 
+          event={event} 
+          handleHover={this.props.hoverEvent} 
+          fetchArtist={this.props.fetchArtist}
+          />
       })      
     )
   }
@@ -37,7 +39,6 @@ class Concerts extends React.Component {
   }
   //
 }
-
 
 function mapStateToProps(state) {
   return {

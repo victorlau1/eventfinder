@@ -4,16 +4,22 @@ import moment from 'moment';
 import {Navbar, FormGroup, FormControl, Button} from 'react-bootstrap';
 import axios from 'axios';
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getNewLocation, setDate, fetchEvents } from '../actions/index.js';
+
+
+
 // ignore the fact that this is called Favorites but the file is called Filters
 class Favorites extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
+
     this.state = {
-      startDate: moment(),
-      radius: 5,
       search: ''
     }
   }
+
 
   handleSearch(text) {
     this.setState({
@@ -24,26 +30,21 @@ class Favorites extends React.Component {
   // beginning of search functionality. we wanted to implement google search to be able to
   // autocomplete addresses but hey that's your job now
   handleSubmit() {
-    let context = this;
-    axios.post('/google/search', {
-        loc: this.state.search
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .then((res) => {
-        context.setState({
-          search: ''
-        });
-      })
+    console.log('Search',this.state.search)
+    this.props.getNewLocation(this.state.search)
+    //Figure out Async Here
+    this.props.fetchEvents(this.props.startDate, payload.data.lat, payload.data.lng)
+  }
+
+  handleDateChange(moment){
+    this.props.setDate(moment);
+    this.props.fetchEvents(moment.format('YYYY-MM-DD'), this.props.mapCenter.loc, this.props.mapCenter.lng);
   }
 
   render() {
 
     const datepicker =  {
       paddingTop: '3.5px'
-
-
     }
 
     return (
@@ -51,7 +52,7 @@ class Favorites extends React.Component {
         <Navbar bsStyle="info">
           <Navbar.Form pullLeft>
             <FormGroup>
-              <FormControl type="text" placeholder="Location..." onChange={this.handleSearch.bind(this)}/>
+                <FormControl type="text" placeholder="Location..." onChange={this.handleSearch.bind(this)}/>
             </FormGroup>
             {' '}
             <Button type="submit" onClick={this.handleSubmit.bind(this)}>Submit</Button>
@@ -61,7 +62,7 @@ class Favorites extends React.Component {
         <DatePicker
           dateFormat="MM/DD/YYYY"
           selected={this.props.startDate}
-          onChange={this.props.handleDateChange}
+          onChange={this.handleDateChange.bind(this)}
         /> </div>
         </Navbar.Form>
         </Navbar>
@@ -70,5 +71,15 @@ class Favorites extends React.Component {
   }
 };
 
-export default Favorites;
+function mapStateToProps(state) {
+  return {
+    startDate: state.startDate,
+    mapCenter: state.mapCenter
+  }
+}
 
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ getNewLocation ,setDate , fetchEvents }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Favorites);

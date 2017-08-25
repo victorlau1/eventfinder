@@ -21,15 +21,6 @@ const style = {
 }
 
 class Map extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     // we hard-coded this map center but ideally you'll be able to set location based on google search
-  //     center: this.props.mapCenter,
-  //     zoom: 13,
-  //     events: []
-  //   }
-  // }
   
   handleClick(event) {
     // should there even be a handleClick for the map itself?
@@ -37,24 +28,15 @@ class Map extends React.Component {
     // or should clicking on the marker highlight all concerts at that venue?
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   let events = nextProps.events;
-  //   let venues = events.map((event) => {
-  //     return {
-  //       lat: event.latitude,
-  //       lng: event.longitude,
-  //       name: event.venue
-  //     }
-  //   });
-  //   this.setState({
-  //     markerLocs: venues
-  //   });
-  // }
 
   renderMarkers(){
     console.log('MAPS PROPS', this.props)
     return this.props.events.map(event =>{
-      return <Markers onHover={() => this.props.hoverEvent(event)} name={event.venue} lat={event.latitude} lng={event.longitude} />
+      return <Markers 
+              hovered={this.props.hoverEvent} 
+              name={event.headline} 
+              lat={event.latitude} 
+              lng={event.longitude} />
     });
   }
 
@@ -63,7 +45,7 @@ class Map extends React.Component {
     return (
       <div style={style}>
         <GoogleMapReact
-          defaultCenter={this.props.center}
+          defaultCenter={this.props.mapCenter}
           defaultZoom={this.props.zoom}
         >
           {this.renderMarkers()}
@@ -74,11 +56,11 @@ class Map extends React.Component {
 }
 
 function mapStateToProps(state) {
-  console.log(state);
   return {
     events: state.events,
-    center: state.mapCenter,
-    zoom: state.zoom
+    mapCenter: state.mapCenter,
+    zoom: state.zoom,
+    hoverEvent: state.hoverEvent
   }
 }
 

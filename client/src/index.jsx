@@ -14,8 +14,8 @@ const initial = {
   events: [],
   startDate: moment(),
   artist: '',
-  hoveredEvent: '',
   artistId: undefined,
+  hoveredEvent: '',
   token: undefined,
   mapCenter: {lat: 37.783607, lng:-122.408967},
   zoom: 13
