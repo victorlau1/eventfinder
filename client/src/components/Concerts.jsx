@@ -4,18 +4,49 @@ import ConcertEntry from './ConcertEntry.jsx';
 import {ListGroup} from 'react-bootstrap';
 import {Panel} from 'react-bootstrap';
 
-const Concerts = (props) => {
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { fetchEvents, hoverEvent, fetchArtist } from '../actions/index.js';
 
-  return (
-    <Panel collapsible defaultExpanded header="Nearby Concerts" bsStyle="info">
-      <ListGroup fill>
-        {props.events.map((event, i) => {
-          return <ConcertEntry handleHover={props.handleHover} event={event} key={i} handleArtistClick={props.handleArtistClick}/>
-        })}
-      </ListGroup>
-    </Panel>
 
-  )
+
+
+class Concerts extends React.Component {
+  
+  componentWillMount() {
+    this.props.fetchEvents();
+  }
+
+  renderEntry() {
+    console.log('Concert Props', this.props)
+    return (
+      this.props.events.map((event) => {
+        return <ConcertEntry  key={event.id} event={event} handleHover={this.props.hoverEvent} handleArtistClick={this.props.fetchArtist}/>
+      })      
+    )
+  }
+
+  render() {
+    return (
+      <Panel collapsible defaultExpanded header="Nearby Concerts">
+        <ListGroup fill>
+          {this.renderEntry()}
+        </ListGroup>
+      </Panel>
+    )
+  }
+  //
 }
 
-export default Concerts;
+
+function mapStateToProps(state) {
+  return {
+    events: state.events
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ fetchEvents, hoverEvent, fetchArtist }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Concerts);

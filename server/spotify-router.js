@@ -23,7 +23,7 @@ router.get('/login', (req, res) => {
 	let encodedRedirectURI = encodeURIComponent(spotifyCredentials.redirect_uri);
 	let authorizeURL = `https://accounts.spotify.com/authorize?client_id=${encodedClientId}&redirect_uri=${encodedRedirectURI}&scope=user-read-private%20user-read-email&response_type=token`;
 	res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 	res.send(authorizeURL);
 
 });

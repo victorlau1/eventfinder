@@ -10,9 +10,10 @@ router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: true}));
 
 router.post('/', (req, res) => {
-	let date = req.body.date;
-  let lat = req.body.lat;
-  let lng = req.body.lng;
+  console.log(req.body)
+	let date = req.body.params.date;
+  let lat = req.body.params.lat;
+  let lng = req.body.params.lng;
   db.getEvents(date, (dbEvents) => {
     if (dbEvents.length) {
         res.send(dbEvents);

@@ -16,7 +16,7 @@ var DIST_DIR = path.join(__dirname, 'client/dist');
                  test: /\.jsx?/,
                  loader: 'babel-loader',
                  query: {
-                     presets: ['es2015', 'react']
+                     presets: ['es2015', 'react', 'stage-2']
                  }
              }
          ],
