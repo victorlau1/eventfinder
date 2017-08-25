@@ -38,6 +38,8 @@
     "babel-register": "^6.7.2",
     "chai": "^4.1.1",
     "chai-http": "^3.0.0",
+    "chai-subset": "^1.5.0",
+    "circular-json": "^0.3.3",
     "css-loader": "^0.28.5",
     "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
     "mocha": "^3.5.0",
