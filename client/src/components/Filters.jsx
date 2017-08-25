@@ -24,8 +24,7 @@ class Favorites extends React.Component {
 
   // beginning of search functionality. we wanted to implement google search to be able to
   // autocomplete addresses but hey that's your job now
-  handleSubmit() {
-    
+  handleSubmit() {    
     if (this.state.searchType === 'Artist') {
       console.log('This Artist');
       this.handleSend(this.state.search, 1)
@@ -38,6 +37,7 @@ class Favorites extends React.Component {
           console.log(err);
         })
         .then((res) => {
+          this.props.handleMapChange(res.data[0].geometry.location);
           context.setState({
             search: ''
           });
@@ -46,7 +46,6 @@ class Favorites extends React.Component {
     }
     
     handleSend(artist, page) {
-
       var params = {artist: artist, page: page}
       axios.post('/songkick/artist', params)
       .then((data) =>{
@@ -55,7 +54,7 @@ class Favorites extends React.Component {
       .catch((err)=>{
         console.log(err);
       })
-  }
+    }
 
   changeSearch(event) {
     this.setState({

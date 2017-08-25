@@ -20,7 +20,7 @@ class Map extends React.Component {
     super(props);
     this.state = {
       // we hard-coded this map center but ideally you'll be able to set location based on google search
-      center: this.props.mapCenter,
+      center: this.props.center,
       zoom: 13,
       markerLocs: []
     }
