@@ -1,7 +1,7 @@
 import React from 'react';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
-import {Navbar, FormGroup, FormControl, Button} from 'react-bootstrap';
+import {Navbar, FormGroup, FormControl, Button, ButtonGroup, DropdownButton, MenuItem} from 'react-bootstrap';
 import axios from 'axios';
 
 // ignore the fact that this is called Favorites but the file is called Filters
@@ -11,7 +11,8 @@ class Favorites extends React.Component {
     this.state = {
       startDate: moment(),
       radius: 5,
-      search: ''
+      search: '',
+      searchType: ''
     }
   }
 
@@ -24,26 +25,49 @@ class Favorites extends React.Component {
   // beginning of search functionality. we wanted to implement google search to be able to
   // autocomplete addresses but hey that's your job now
   handleSubmit() {
-    let context = this;
-    axios.post('/google/search', {
-        loc: this.state.search
+    
+    if (this.state.searchType === 'Artist') {
+      console.log('This Artist');
+      this.handleSend(this.state.search, 1)
+    } else {
+        var context = this;
+        axios.post('/google/search', {
+          loc: this.state.search
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .then((res) => {
+          context.setState({
+            search: ''
+          });
+        })
+      }
+    }
+    
+    handleSend(artist, page) {
+
+      var params = {artist: artist, page: page}
+      axios.post('/songkick/artist', params)
+      .then((data) =>{
+        console.log(data);
       })
-      .catch((err) => {
+      .catch((err)=>{
         console.log(err);
       })
-      .then((res) => {
-        context.setState({
-          search: ''
-        });
-      })
+  }
+
+  changeSearch(event) {
+    this.setState({
+      searchType: event
+    })
+    console.log(this.state.searchType)
   }
 
   render() {
 
     const datepicker =  {
       paddingTop: '3.5px'
-
-
     }
 
     return (
@@ -51,10 +75,16 @@ class Favorites extends React.Component {
         <Navbar bsStyle="info">
           <Navbar.Form pullLeft>
             <FormGroup>
-              <FormControl type="text" placeholder="Location..." onChange={this.handleSearch.bind(this)}/>
+              <FormControl type="text" placeholder="Search..." onChange={this.handleSearch.bind(this)}/>
             </FormGroup>
             {' '}
-            <Button type="submit" onClick={this.handleSubmit.bind(this)}>Submit</Button>
+            <ButtonGroup>
+              <Button type="submit" onClick={this.handleSubmit.bind(this)}>Submit</Button>
+              <DropdownButton title={this.state.searchType === '' ? "Dropdown" : this.state.searchType } id="bg-nested-dropdown">
+                <MenuItem onSelect={this.changeSearch.bind(this)} eventKey="Location">Location</MenuItem>
+                <MenuItem onSelect={this.changeSearch.bind(this)} eventKey="Artist">Artist</MenuItem>
+              </DropdownButton>
+            </ButtonGroup>
           </Navbar.Form>
           <Navbar.Form>
           <div style={datepicker}>
