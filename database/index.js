@@ -1,6 +1,6 @@
 const credentials = require('./config.js');
 let user = credentials.loginData.user;
-let password = credentials.loginData.password
+let password = credentials.loginData.password;
 
 const Sequelize = require('sequelize');
 
@@ -23,7 +23,7 @@ const Events = seq.define('events', {
 });
 
 Events.sync({force: false}).then(() => {
-	console.log('Created "events" table');
+  console.log('Created "events" table');
 });
 
 //test the connection
@@ -37,8 +37,8 @@ seq
   });
 
 let createEvent = (event) => {
-	return Events.create({
-		displayName: event.displayName,
+  return Events.create({
+	  displayName: event.displayName,
 	  headline: event.performance[0].displayName,
 	  uri: event.uri,
 	  time: event.start.time,
@@ -55,13 +55,13 @@ let getEvents = (date, callback) => {
 			date: date
 		},
 		raw: true
-	})
-	.then((data) => {
-		callback(data);
-	})
-	.catch((error) => {
-		console.log("Error getting events: ", error);
-	})
+	});
+	// .then((data) => {
+	// 	callback(data);
+	// })
+	// .catch((error) => {
+	// 	console.log("Error getting events: ", error);
+	// })
 };
 
 module.exports.createEvent = createEvent;
