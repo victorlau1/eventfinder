@@ -81,4 +81,25 @@ router.post('/', (req, res) => {
   //   });
 });
 
+router.post('/artist', (req, res) => {
+  
+  console.log(req.body)
+
+  var firstRequest = (req, res, page) => {
+
+    var artist = req.body.artist || 'Metallica';
+    var page = page || req.body.page;
+    var url =  `http://api.songkick.com/api/3.0/search/artists.json?query=${artist}&apikey=${apiKey}&page=${page}`;
+    
+    return axios.get(url)
+    .then((results) => {
+      res.send(results.data);
+    })
+    .catch((err) => {
+      res.status(404).send(err);
+    })
+  }
+  
+  firstRequest(req, res, req.page)
+})
 module.exports = router;
