@@ -4,6 +4,7 @@ let server = require('../server/index.js');
 let should = chai.should();
 let expect = require('chai').expect;
 let moment = require('moment');
+let chaiSubset = require('chai-subset');
 
 chai.use(chaiHTTP);
 
@@ -126,7 +127,7 @@ describe('Spotify API', () => {
 			  	res.should.have.status(200);
 			  	done();
 			  })
-		})
+		});
 		it('it should 404 everything else', (done) => {
 		chai.request(server)
 			.post('/spotify/foo/')
@@ -158,5 +159,19 @@ describe('Spotify API', () => {
 	// 	});
 	// });
 
+	describe('POST /google/search', () => {
+		it('should respond with google maps data', (done) => {
+			chai.request(server)
+			  .post('/google/search/')
+			  .send({loc : '944+market+street'})
+			  .end( (err, res) => {
+			  	expect(res.body[0]).to.be.a('object');
+			  	expect(res.body[0]).to.have.property('address_components');
+			  	expect(res.body[0]).to.have.property('formatted_address');
+			  	expect(res.body[0]).to.have.property('geometry');
+			  	done();
+			  });
+		});
+	})
 
 });
