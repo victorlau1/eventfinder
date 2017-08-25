@@ -33,6 +33,8 @@ class Map extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    this.setState({center: nextProps.mapCenter});
+
     let events = nextProps.events;
     let venues = events.map((event) => {
       return {
@@ -54,7 +56,8 @@ class Map extends React.Component {
     return (
       <div style={style}>
         <GoogleMapReact
-          defaultCenter={this.state.center}
+
+          center={this.state.center}
           defaultZoom={this.state.zoom}
         >
           {markers}

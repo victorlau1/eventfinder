@@ -26,6 +26,7 @@ class App extends React.Component {
 
     this.handleDateChange = this.handleDateChange.bind(this);
     this.handleArtistClick = this.handleArtistClick.bind(this);
+    this.handleMapChange = this.handleMapChange.bind(this);
     this.handleHover = this.handleHover.bind(this);
   }
 
@@ -64,6 +65,12 @@ class App extends React.Component {
       startDate: date
     });
     this.requestSongkickEvents(date);
+  }
+
+  handleMapChange(loc) {
+    this.setState({
+      mapCenter: loc
+    })
   }
 
   handleArtistClick(clickedArtist) {
@@ -161,7 +168,7 @@ class App extends React.Component {
         </Row>
         <Row>
           <Col md={12}>
-            <Filters handleDateChange={this.handleDateChange} startDate={this.state.startDate}/>
+            <Filters handleMapChange={this.handleMapChange} handleDateChange={this.handleDateChange} startDate={this.state.startDate}/>
           </Col>
         </Row>
         <Row>
