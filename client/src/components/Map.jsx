@@ -52,7 +52,7 @@ class Map extends React.Component {
       return <Markers hovered={this.props.hovered} name={loc.name} lat={loc.lat} lng={loc.lng} />
     });
     return (
-      <div style={style}>
+      <div style={style} >
         <GoogleMapReact
           defaultCenter={this.state.center}
           defaultZoom={this.state.zoom}
