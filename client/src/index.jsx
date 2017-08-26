@@ -63,8 +63,10 @@ class App extends React.Component {
   handleDateChange(date) {
     this.setState({
       startDate: date
+    }, () => {
+      //after setState finished update 
+      this.requestSongkickEvents(this.state.startDate);
     });
-    this.requestSongkickEvents();
   }
 
   handleArtistClick(clickedArtist) {
@@ -123,13 +125,19 @@ class App extends React.Component {
       lng: longitude
     })
       .then((data) => {
-        console.log('data received', data.data)
-        this.setState({
+        if(data.data[0] !== undefined){
+          this.setState({
           events: data.data,
           artist: data.data[0].headline
-        });
-        this.requestArtistId();
-        console.log('state:', this.state.events);
+          });
+          this.requestArtistId();
+        } else {
+          this.setState({
+            events: [],
+            artist: ''
+          });
+        }
+        
       })
       .catch((err) => {
         console.log('Error: ', err);
