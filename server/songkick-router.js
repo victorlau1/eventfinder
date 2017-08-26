@@ -13,32 +13,32 @@ router.post('/', (req, res) => {
   let date = req.body.date;
   let lat = req.body.lat;
   let lng = req.body.lng;
-  //retry start
-
-  // console.log("DATE################################## ", date)
-  db.getEvents(date)
+  //look for events in db that have specific date, within a specific area
+  db.getEvents(date, lat, lng)
   .then((dbEvents) => {
-    // if (dbEvents.length) {
-    //   // console.log('DBEVENTS: ', dbEvents);
-    //   res.send(dbEvents);
-
-    // } else {
+    //if there are matching items in the db
+    if (dbEvents.length) {
+      //send to client
+      res.send(dbEvents);
+      //nothing return from db query
+    } else {
+      //build songkick api call url
       return `http://api.songkick.com/api/3.0/events.json?apikey=${apiKey}&location=geo:${lat},${lng}&min_date=${date}&max_date=${date}`;
-    // }
+    }
   })
   .then((url) => {
+    // api call to songkick
     axios.get(url)
     .then((events) => {
       let data = events.data.resultsPage.results.event;
-      // console.log('EVENTS data', data);
+      // create event in events table for each event in events
       async.each(data, (event, callback) => {
         db.createEvent(event).then(callback);
       }, (err, results) => {
-        // console.log("finished with Async");
-        // console.log('err', err);
-        db.getEvents(date)
+        // retrieve new events from db
+        db.getEvents(date, lat, lng)
           .then((events) => {
-            // console.log("About to send back events", events)
+            //send to client
             res.send(events);
           });
       });
@@ -49,36 +49,7 @@ router.post('/', (req, res) => {
     console.log('ERROR ', err);
     res.status(404).send(err); 
   });
-  //retry end
-  // db.getEvents(date, (dbEvents) => {
-  //   if (dbEvents.length) {
-  //       res.send(dbEvents);
-  //   } else {
-  //     // here you could add functionality to setting a min/max date to search between
-  //   	let url = `http://api.songkick.com/api/3.0/events.json?apikey=${apiKey}&location=geo:${lat},${lng}&min_date=${date}&max_date=${date}`;
-  //     axios.get(url)
-  //       .then((events) => {
-  //         let data = events.data.resultsPage.results.event;
-  //         async.each(data, (event, callback) => {
-  //           db.createEvent(event);
-  //           console.log('event saved: ', event);
-  //           callback();
-  //         }, (err) => {
-  //           setTimeout(function() {
-  //             db.getEvents(date, (newEvents) => {
-  //               //new events is returning empty when it should have the newly saved event data, set timeout is a patch
-  //               console.log('getting events: ', newEvents);
-  //               res.send(newEvents);
-  //           }, 500);
-  //           });
-  //         });
-  //       });
-  //     }
-  //   })
-  //   .catch((err) => {
-  //     console.log('ERROR ', err);
-  //     res.status(404).send(); 
-  //   });
+
 });
 
 router.post('/artist', (req, res) => {
@@ -97,9 +68,10 @@ router.post('/artist', (req, res) => {
     })
     .catch((err) => {
       res.status(404).send(err);
-    })
-  }
+    });
+  };
   
-  firstRequest(req, res, req.page)
-})
+  firstRequest(req, res, req.page);
+});
+
 module.exports = router;

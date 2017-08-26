@@ -51,10 +51,12 @@ let createEvent = (event) => {
 	});
 } 
 
-let getEvents = (date) => {
+let getEvents = (date, lat, long) => {
 	return Events.findAll({
 		where: {
-			date: date
+			date: date,
+			latitude: {$between: [lat - 5, lat + 5]},
+			longitude: {$between: [long - 5, long + 5]}
 		},
 		order: [
 			['popularity', 'DESC']
