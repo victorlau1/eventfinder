@@ -64,13 +64,7 @@ class App extends React.Component {
     this.setState({
       startDate: date
     });
-    this.requestSongkickEvents(date);
-  }
-
-  handleMapChange(loc) {
-    this.setState({
-      mapCenter: loc
-    })
+    this.requestSongkickEvents();
   }
 
   handleArtistClick(clickedArtist) {
@@ -116,7 +110,6 @@ class App extends React.Component {
     }
   }
 
-
   requestSongkickEvents(date) {
     let formattedDate = this.state.startDate.format('YYYY-MM-DD');
     let latitude = this.state.mapCenter.lat;
@@ -141,6 +134,13 @@ class App extends React.Component {
       .catch((err) => {
         console.log('Error: ', err);
       });
+  }
+
+  handleMapChange(loc) {
+    this.setState({
+      mapCenter: loc
+    })
+    this.requestSongkickEvents(this.state.startDate);
   }
 
  render() {

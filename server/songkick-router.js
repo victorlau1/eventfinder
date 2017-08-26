@@ -18,13 +18,13 @@ router.post('/', (req, res) => {
   // console.log("DATE################################## ", date)
   db.getEvents(date)
   .then((dbEvents) => {
-    if (dbEvents.length) {
-      // console.log('DBEVENTS: ', dbEvents);
-      res.send(dbEvents);
+    // if (dbEvents.length) {
+    //   // console.log('DBEVENTS: ', dbEvents);
+    //   res.send(dbEvents);
 
-    } else {
+    // } else {
       return `http://api.songkick.com/api/3.0/events.json?apikey=${apiKey}&location=geo:${lat},${lng}&min_date=${date}&max_date=${date}`;
-    }
+    // }
   })
   .then((url) => {
     axios.get(url)
