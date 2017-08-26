@@ -101,6 +101,7 @@ class Favorites extends React.Component {
             </ButtonGroup>
           </Navbar.Form>
           <Navbar.Form>
+          {this.searchdisplay()}
         </Navbar.Form>
         </Navbar>
       </div>
