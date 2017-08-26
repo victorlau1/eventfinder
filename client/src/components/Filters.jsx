@@ -48,8 +48,9 @@ class Favorites extends React.Component {
     handleSend(artist, page) {
       var params = {artist: artist, page: page}
       axios.post('/songkick/artist', params)
-      .then((data) =>{
-        console.log(data);
+      .then((res) =>{
+        console.log(res)
+        this.props.getArtistData(res.data.resultsPage.results);
       })
       .catch((err)=>{
         console.log(err);
@@ -86,7 +87,7 @@ class Favorites extends React.Component {
     
     return (
       <div>
-        <Navbar bsStyle="info">
+        <Navbar bsStyle="Info">
           <Navbar.Form pullLeft>
             <FormGroup>
               <FormControl type="text" placeholder="Search..." onChange={this.handleSearch.bind(this)}/>

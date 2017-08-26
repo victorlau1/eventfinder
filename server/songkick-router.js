@@ -64,6 +64,7 @@ router.post('/artist', (req, res) => {
     
     return axios.get(url)
     .then((results) => {
+      console.log(results.data)
       res.send(results.data);
     })
     .catch((err) => {

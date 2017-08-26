@@ -7,6 +7,8 @@ import Filters from './components/Filters.jsx';
 import Map from './components/Map.jsx';
 import Playlist from './components/Playlist.jsx';
 import Concerts from './components/Concerts.jsx';
+import Artist from './components/Artists.jsx';
+
 import ReactScrollbar from 'react-scrollbar-js';
 import {PageHeader} from 'react-bootstrap';
 
@@ -18,8 +20,9 @@ class App extends React.Component {
       events: [],
       startDate: moment(),
       artist: '',
-      hoveredEvent: '',
       artistId: undefined,
+      artistList: [],
+      hoveredEvent: '',
       token: undefined,
       mapCenter: {lat: 37.783607, lng:-122.408967}
     };
@@ -28,6 +31,7 @@ class App extends React.Component {
     this.handleArtistClick = this.handleArtistClick.bind(this);
     this.handleMapChange = this.handleMapChange.bind(this);
     this.handleHover = this.handleHover.bind(this);
+    this.getArtistData = this.getArtistData.bind(this);
   }
 
   componentWillMount() {
@@ -143,6 +147,13 @@ class App extends React.Component {
     this.requestSongkickEvents(this.state.startDate);
   }
 
+  getArtistData(artistList){
+    console.log('ArtistsList is', artistList)
+    this.setState({
+      artistList: artistList
+    })
+  }
+
  render() {
 
     const scrollbar = {
@@ -168,7 +179,10 @@ class App extends React.Component {
         </Row>
         <Row>
           <Col md={12}>
-            <Filters handleMapChange={this.handleMapChange} handleDateChange={this.handleDateChange} startDate={this.state.startDate}/>
+            <Filters handleMapChange={this.handleMapChange} 
+                     handleDateChange={this.handleDateChange} 
+                     startDate={this.state.startDate}
+                     getArtistData={this.getArtistData}/>
           </Col>
         </Row>
         <Row>
@@ -180,6 +194,9 @@ class App extends React.Component {
             <ReactScrollbar style={scrollbar}>
               <Concerts handleHover={this.handleHover} events={this.state.events} handleArtistClick={this.handleArtistClick}/>
             </ReactScrollbar>
+            <ReactScrollbar style={scrollbar}>
+              <Artist artistList={this.state.artistList}/>
+            </ReactScrollbar>
           </Col>
         </Row>
       </Grid>
@@ -187,7 +204,6 @@ class App extends React.Component {
     )
   }
 }
-
 
 ReactDOM.render(<App />, document.getElementById('app'));
 

@@ -1,14 +1,19 @@
 import React from 'react';
 import {ListGroupItem, Button} from 'react-bootstrap';
 
-export default const ArtistEntry = (props) => {
+const ArtistEntry = (props) => {
+
    return (
-      <ListGroupItem
+      <ListGroupItem>
+      {console.log('This is called')}
       header={this.props.artist.displayName}
-      onClick={() => this.handleClick(this.props.event.headline)}
-      <span> {this.props.artist.} </span>
-      <Button className="pull-right" bsStyle="Primary "href={this.props.artist.uri}>Buy Tickets</Button>
+      {this.props.artist.identifier.map((event) => {
+         return <a href={event.href} />
+      })}
+      <span> On Tour Till: {this.props.artist.onTourUntil} </span>
+      <Button className="pull-right" bsStyle="primary" href={this.props.artist.uri}>Artist Info</Button>
       </ListGroupItem>
    )
 }
 
+export default ArtistEntry;
