@@ -19,7 +19,8 @@ const Events = seq.define('events', {
   date: Sequelize.STRING,
   venue: Sequelize.STRING,
   latitude: Sequelize.STRING,
-  longitude: Sequelize.STRING
+  longitude: Sequelize.STRING,
+  popularity: Sequelize.DOUBLE
 });
 
 Events.sync({force: false}).then(() => {
@@ -45,23 +46,22 @@ let createEvent = (event) => {
 	  date: event.start.date,
 	  venue: event.venue.displayName,
 	  latitude: event.location.lat,
-	  longitude: event.location.lng
+    longitude: event.location.lng,
+    popularity: event.popularity
 	});
 } 
 
-let getEvents = (date, callback) => {
+let getEvents = (date) => {
 	return Events.findAll({
 		where: {
 			date: date
 		},
+		order: [
+			['popularity', 'DESC']
+		],
 		raw: true
 	});
-	// .then((data) => {
-	// 	callback(data);
-	// })
-	// .catch((error) => {
-	// 	console.log("Error getting events: ", error);
-	// })
+
 };
 
 module.exports.createEvent = createEvent;
