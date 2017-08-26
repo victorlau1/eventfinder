@@ -1,5 +1,5 @@
 import React from 'react';
-import {ListGroupItem} from 'react-bootstrap';
+import {ListGroupItem, Button} from 'react-bootstrap';
 
 class ConcertEntry extends React.Component {
   constructor(props) {
@@ -30,7 +30,7 @@ class ConcertEntry extends React.Component {
         onMouseEnter={() =>  this.mouseIn(this.props.event.venue)}
         onMouseLeave={() => this.mouseOut()}>
         <span> {this.props.event.venue} on {this.props.event.date.slice(0, 10)} {this.props.event.time}</span>
-        <a href={this.props.event.uri}> Buy Tickets</a>
+        <Button className="pull-right" bsStyle="primary" href={this.props.event.uri} target="_blank">Buy Tickets</Button>
       </ListGroupItem>
     )
   }

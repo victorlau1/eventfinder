@@ -48,8 +48,9 @@ class Favorites extends React.Component {
     handleSend(artist, page) {
       var params = {artist: artist, page: page}
       axios.post('/songkick/artist', params)
-      .then((data) =>{
-        console.log(data);
+      .then((res) =>{
+        console.log(res)
+        this.props.getArtistData(res.data.resultsPage.results.artist);
       })
       .catch((err)=>{
         console.log(err);
@@ -62,16 +63,31 @@ class Favorites extends React.Component {
     })
     console.log(this.state.searchType)
   }
-
+  
+  searchdisplay(){
+    
+    if (this.state.searchType === 'Artist') {
+      return (<div>Find an Artist!</div>)
+    } else {
+      const datepicker =  {
+        paddingTop: '3.5px'
+      }
+      return ( 
+        <div style={datepicker}>
+        <DatePicker
+        dateFormat="MM/DD/YYYY"
+        selected={this.props.startDate}
+        onChange={this.props.handleDateChange}
+        /> </div>
+      )
+    }  
+  }
+  
   render() {
-
-    const datepicker =  {
-      paddingTop: '3.5px'
-    }
-
+    
     return (
       <div>
-        <Navbar bsStyle="info">
+        <Navbar bsStyle="Info">
           <Navbar.Form pullLeft>
             <FormGroup>
               <FormControl type="text" placeholder="Search..." onChange={this.handleSearch.bind(this)}/>
@@ -86,12 +102,7 @@ class Favorites extends React.Component {
             </ButtonGroup>
           </Navbar.Form>
           <Navbar.Form>
-          <div style={datepicker}>
-        <DatePicker
-          dateFormat="MM/DD/YYYY"
-          selected={this.props.startDate}
-          onChange={this.props.handleDateChange}
-        /> </div>
+          {this.searchdisplay()}
         </Navbar.Form>
         </Navbar>
       </div>
