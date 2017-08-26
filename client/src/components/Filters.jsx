@@ -62,13 +62,28 @@ class Favorites extends React.Component {
     })
     console.log(this.state.searchType)
   }
-
+  
+  searchdisplay(){
+    
+    if (this.state.searchType === 'Artist') {
+      return (<div>Find an Artist!</div>)
+    } else {
+      const datepicker =  {
+        paddingTop: '3.5px'
+      }
+      return ( 
+        <div style={datepicker}>
+        <DatePicker
+        dateFormat="MM/DD/YYYY"
+        selected={this.props.startDate}
+        onChange={this.props.handleDateChange}
+        /> </div>
+      )
+    }  
+  }
+  
   render() {
-
-    const datepicker =  {
-      paddingTop: '3.5px'
-    }
-
+    
     return (
       <div>
         <Navbar bsStyle="info">
@@ -86,12 +101,6 @@ class Favorites extends React.Component {
             </ButtonGroup>
           </Navbar.Form>
           <Navbar.Form>
-          <div style={datepicker}>
-        <DatePicker
-          dateFormat="MM/DD/YYYY"
-          selected={this.props.startDate}
-          onChange={this.props.handleDateChange}
-        /> </div>
         </Navbar.Form>
         </Navbar>
       </div>
