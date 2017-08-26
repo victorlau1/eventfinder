@@ -159,6 +159,7 @@ class App extends React.Component {
     const scrollbar = {
       width: 555,
       height: 290,
+      margin: 10
     };
 
     const header = {
@@ -190,17 +191,28 @@ class App extends React.Component {
             <Map mapCenter={this.state.mapCenter} hovered={this.state.hoveredEvent} events={this.state.events}/>
           </Col>
           <Col md={6}>
+          <Row>
+            <Col md={12}>
             <Playlist artistId={this.state.artistId}/>
-            <ReactScrollbar style={scrollbar}>
-              <Concerts handleHover={this.handleHover} events={this.state.events} handleArtistClick={this.handleArtistClick}/>
-            </ReactScrollbar>
-            <ReactScrollbar style={scrollbar}>
-              <Artist artistList={this.state.artistList}/>
-            </ReactScrollbar>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={12}>
+              <ReactScrollbar style={scrollbar}>
+                <Concerts handleHover={this.handleHover} events={this.state.events} handleArtistClick={this.handleArtistClick}/>
+              </ReactScrollbar>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={12}>
+              <ReactScrollbar style={scrollbar}>
+                <Artist artistList={this.state.artistList}/>
+              </ReactScrollbar>
+            </Col>
+          </Row>
           </Col>
         </Row>
       </Grid>
-
     )
   }
 }

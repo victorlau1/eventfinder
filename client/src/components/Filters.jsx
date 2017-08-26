@@ -50,7 +50,7 @@ class Favorites extends React.Component {
       axios.post('/songkick/artist', params)
       .then((res) =>{
         console.log(res)
-        this.props.getArtistData(res.data.resultsPage.results);
+        this.props.getArtistData(res.data.resultsPage.results.artist);
       })
       .catch((err)=>{
         console.log(err);

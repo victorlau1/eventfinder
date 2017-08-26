@@ -12,14 +12,18 @@ export default class Artist extends Component {
    }
 
    render() {
-      return (
+      return this.props.artistList[0] ?  
+       (
          <Panel collapsible defaultExpanded header="Artists Found" bsStyle="info">
          <ListGroup fill>
-         {this.state.artistList.map((artist, i) => {
+         {this.props.artistList.map((artist, i) => {
             return <ArtistEntry key={artist.id} artist={artist}/>
          })}
          </ListGroup>
          </Panel>
+      ) :
+      (
+         <div></div>
       )
    }
 }

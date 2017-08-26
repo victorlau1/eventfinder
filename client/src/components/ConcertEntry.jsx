@@ -30,7 +30,7 @@ class ConcertEntry extends React.Component {
         onMouseEnter={() =>  this.mouseIn(this.props.event.venue)}
         onMouseLeave={() => this.mouseOut()}>
         <span> {this.props.event.venue} on {this.props.event.date.slice(0, 10)} {this.props.event.time}</span>
-        <Button className="pull-right" bsStyle="primary" href={this.props.event.uri}>Buy Tickets</Button>
+        <Button className="pull-right" bsStyle="primary" href={this.props.event.uri} target="_blank">Buy Tickets</Button>
       </ListGroupItem>
     )
   }
